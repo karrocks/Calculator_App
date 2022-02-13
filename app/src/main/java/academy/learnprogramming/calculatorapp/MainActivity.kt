@@ -100,6 +100,10 @@ class MainActivity : AppCompatActivity() {
                 "*" -> operand1 = operand1!! * operand2
                 "-" -> operand1 = operand1!! - operand2
                 "+" -> operand1 = operand1!! + operand2
+                /* !! is Null Pointer Exception - only use when sure that the entered value would never be null
+                   if it is not used then we cannot perform operations between operand1 and operand2 since they are different
+                   types of variables one is double? and other is double so null pointer "exception" is used.
+                 */
             }
         }
 
