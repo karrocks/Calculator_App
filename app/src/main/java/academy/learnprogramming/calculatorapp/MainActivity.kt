@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     //variables for the operands and the type of the calculation
     private var operand1: Double? = null
-    private var operand2: Double = 0.0
     private var pendingOperation = "="
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,22 +85,22 @@ class MainActivity : AppCompatActivity() {
         if(operand1 == null){
             operand1 = value
         } else {
-            operand2 = value
+
 
             if(pendingOperation == "="){
                 pendingOperation = operation
             }
 
             when(pendingOperation){
-                "=" -> operand1 = operand2
-                "/" -> if(operand2 == 0.0){
-                            operand1 = Double.NaN
-                        } else {
-                            operand1 = operand1!! / operand2
-                        }
-                "*" -> operand1 = operand1!! * operand2
-                "-" -> operand1 = operand1!! - operand2
-                "+" -> operand1 = operand1!! + operand2
+                "=" -> operand1 = value
+                "/" -> operand1 = if(value == 0.0){
+                    Double.NaN
+                } else {
+                    operand1!! / value
+                }
+                "*" -> operand1 = operand1!! * value
+                "-" -> operand1 = operand1!! - value
+                "+" -> operand1 = operand1!! + value
                 /* !! is Null Pointer Exception - only use when sure that the entered value would never be null
                    if it is not used then we cannot perform operations between operand1 and operand2 since they are different
                    types of variables one is double? and other is double so null pointer "exception" is used.
