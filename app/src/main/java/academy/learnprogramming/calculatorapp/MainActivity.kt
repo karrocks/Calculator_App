@@ -6,7 +6,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-
+private const val OPERATION = "operation"
+private const val OPERAND1 = "operand1"
+private const val OPERAND1_STATE = "operand_state"
 class MainActivity : AppCompatActivity() {
     private lateinit var result: EditText
     private lateinit var newNumber: EditText
@@ -110,5 +112,29 @@ class MainActivity : AppCompatActivity() {
 
         result.setText(operand1.toString())
         newNumber.setText("")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(OPERATION,pendingOperation)
+
+        if(operand1 != null){
+            outState.putDouble(OPERAND1,operand1!!)
+            outState.putBoolean(OPERAND1_STATE,true)
+        }
+
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        pendingOperation = savedInstanceState.getString(OPERATION,"")
+        displayOperation.text = pendingOperation
+
+        operand1 = if(savedInstanceState.getBoolean(OPERAND1_STATE,false)){
+            savedInstanceState.getDouble(OPERAND1)
+        } else {
+            null
+        }
+
     }
 }
