@@ -57,6 +57,23 @@ class MainActivity : AppCompatActivity() {
         binding.buttonMultiply.setOnClickListener(opListener)
         binding.buttonMinus.setOnClickListener(opListener)
         binding.buttonPlus.setOnClickListener(opListener)
+
+        binding.buttonNeg.setOnClickListener { View ->
+            val value = binding.newNumber.text.toString()
+            if(value.isEmpty()){
+                binding.newNumber.setText("-")
+            } else {
+                try {
+                    var doubleValue = value.toDouble()
+                    doubleValue*= -1
+                    binding.newNumber.setText(doubleValue.toString())
+
+                } catch (e: java.lang.NumberFormatException){
+                    //newNumber is "-" or "."
+                    binding.newNumber.setText("")
+                }
+            }
+        }
     }
 
     private fun performOperation(value: Double, operation: String) {
